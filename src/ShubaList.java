@@ -1,5 +1,6 @@
-// An object that builds the data structure from scratch
-// Remove method.
+// An object that builds the data structure from scratch.
+//  Will add the sorting and searching algorithms..
+
 public class ShubaList<Item> {
     private Item[] datas;
     private int size;
@@ -7,7 +8,7 @@ public class ShubaList<Item> {
     //Constructor - start up
     @SuppressWarnings("unchecked")//Suppresses the warning.
     public ShubaList() {
-        datas = (Item[]) new Object[10];
+        datas = (Item[]) new Object[3];
         size = 0;
     }
 
@@ -15,8 +16,44 @@ public class ShubaList<Item> {
 
     //Adding Value Shuba!
     public boolean addShuba(Item item) {
+        if (sizeShuba() >= datas.length) {
+            expandArray();
+        }
+
         datas[size++] = item;
         return true;
+    }
+
+    //Removing Value Shuba!
+    public boolean removeShuba(int removeIndex) {
+        if (removeIndex < 0 || removeIndex >= sizeShuba())
+            return false;
+
+        for (int i = removeIndex; i < sizeShuba() - 1; i++) {
+            datas[i] = datas[i + 1];
+        }
+
+        datas[sizeShuba() - 1] = null;
+        size--;
+
+        return true;
+    }
+
+    public boolean setShuba(int index, Item changeItem) {
+        for (int i = 0; i < sizeShuba(); i++) {
+            if (datas[i].equals(datas[index])) {
+                datas[index] = changeItem;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    //Getting Size Shuba!
+    public int sizeShuba() {
+        return size;
     }
 
     //Getting Value Shuba!
@@ -25,27 +62,18 @@ public class ShubaList<Item> {
 
     }
 
-    //Removing Value Shuba!
-    public boolean removeShuba(int removeIndex) {
-        if (removeIndex < 0 || removeIndex > size)
-            return false;
+    //  Object methods.
+    @SuppressWarnings("unchecked")
+    private void expandArray() {
+        Item[] tempDatas = datas;
 
-        for (int i = removeIndex; i < sizeShuba() - 1; i++) {
-            datas[i] = datas[i + 1];
+        datas = (Item[]) new Object[datas.length * 2];
+
+        for (int i = 0; i < sizeShuba(); i++) {
+            datas[i] = tempDatas[i];
         }
-        datas[sizeShuba() - 1] = null;
-        size--;
 
-        return true;
     }
-
-    //Array Size Shuba!
-    public int sizeShuba() {
-        return size;
-    }
-
-//  Object methods.
-    //Add the array resizing methods when full.
 
 }//end of class
 

@@ -6,22 +6,32 @@ public class Main {
 
         System.out.println("My Very First Data Structure!");
 
-        shuba.addShuba("Joshua");
-        shuba.addShuba("Lebron");
-        shuba.addShuba("James");
-        shuba.addShuba("Shubaruu");
+        shuba.addShuba("Pikamee");
+        shuba.addShuba("Subaru");
+        shuba.addShuba("Korone");
+        shuba.addShuba("Okayu");
+        shuba.addShuba("Gura");
 
         for (int i = 0; i < shuba.sizeShuba(); i++) {
             System.out.println(shuba.getShuba(i));
         }
-        shuba.removeShuba(3);
 
-//        System.out.println(detector);
-        System.out.println();//
+        shuba.removeShuba(2);
+        System.out.println();
 
-        for (int i = 0; i < shuba.sizeShuba(); i++) {
+        for (int i = 0; i < shuba.sizeShuba() ; i++) {
             System.out.println(shuba.getShuba(i));
         }
+
+        shuba.setShuba(0, "Lebron James");
+        System.out.println();
+
+        int counter = 0;
+        while (counter < shuba.sizeShuba()){
+            System.out.println(shuba.getShuba(counter));
+            counter++;
+        }
+
 
 
     }//end of clas
