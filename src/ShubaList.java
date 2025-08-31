@@ -15,19 +15,18 @@ public class ShubaList<Item> {
 //  Interactive Methods
 
     //Adding Value Shuba!
-    public boolean addShuba(Item item) {
+    public void addShuba(Item item) {
         if (sizeShuba() >= datas.length) {
             expandArray();
         }
 
         datas[size++] = item;
-        return true;
     }
 
     //Removing Value Shuba!
-    public boolean removeShuba(int removeIndex) {
+    public void removeShuba(int removeIndex) {
         if (removeIndex < 0 || removeIndex >= sizeShuba())
-            return false;
+            return;
 
         for (int i = removeIndex; i < sizeShuba() - 1; i++) {
             datas[i] = datas[i + 1];
@@ -36,18 +35,44 @@ public class ShubaList<Item> {
         datas[sizeShuba() - 1] = null;
         size--;
 
-        return true;
+
     }
 
-    public boolean setShuba(int index, Item changeItem) {
+    //Appointing a new value to the selected index.
+    public void setShuba(int index, Item changeItem) {
         for (int i = 0; i < sizeShuba(); i++) {
             if (datas[i].equals(datas[index])) {
                 datas[index] = changeItem;
-                return true;
+                return;
+            }
+        }
+    }
+    //Independent method of the ShubaList, mimics the concept of Merge sorting algorithm
+    public void shubaSort(int[] itemSort){
+        int length = itemSort.length;
+
+        //Base case.
+        if(length <= 1) return;
+
+        int mid = length / 2;
+        int[] leftArr = new int[mid];
+        int[] rightArr = new int[length - mid];
+
+        int leftIndex = 0, rightIndex = 0;
+
+        for (; leftIndex < length; leftIndex++) {
+            if(leftIndex < mid){
+                leftArr[leftIndex] = itemSort[leftIndex];
+            }else{
+                rightArr[rightIndex] = itemSort[leftIndex];
+                rightIndex++;
             }
         }
 
-        return false;
+        shubaSort(leftArr);
+        shubaSort(rightArr);
+        shubaSortHelper(leftArr, rightArr, itemSort);
+
     }
 
 
@@ -63,6 +88,7 @@ public class ShubaList<Item> {
     }
 
     //  Object methods.
+    //-> This expands the array.
     @SuppressWarnings("unchecked")
     private void expandArray() {
         Item[] tempDatas = datas;
@@ -71,6 +97,39 @@ public class ShubaList<Item> {
 
         for (int i = 0; i < sizeShuba(); i++) {
             datas[i] = tempDatas[i];
+        }
+
+    }
+    //-> Sorts an array (Uses Merge Sorting O(n log n))
+    private void shubaSortHelper(int[] leftArr, int[] rightArr, int[] origArr){
+
+        int length = origArr.length;
+
+        int leftSize = length / 2;
+        int rightSize = length - leftSize;
+
+        int leftIndex = 0, rightIndex = 0, origIndex = 0;
+
+        while(leftIndex < leftSize && rightIndex < rightSize){
+            if(leftArr[leftIndex] < rightArr[rightIndex]){
+                origArr[origIndex] = leftArr[leftIndex];
+                leftIndex++;
+                origIndex++;
+            }else{
+                origArr[origIndex] = rightArr[rightIndex];
+                rightIndex++;
+                origIndex++;
+            }
+        }
+        while (leftIndex < leftSize){
+            origArr[origIndex] = leftArr[leftIndex];
+            leftIndex++;
+            origIndex++;
+        }
+        while (rightIndex < rightSize){
+            origArr[origIndex] = rightArr[rightIndex];
+            rightIndex++;
+            origIndex++;
         }
 
     }

@@ -31,7 +31,28 @@ public class Main {
             System.out.println(shuba.getShuba(counter));
             counter++;
         }
+        System.out.println();//Spacing
 
+        //--> This time using integer for ShubaList
+        ShubaList<Integer> shubaInt = new ShubaList<>();
+        int[] arr = new int[]{5,2,6,1,3,4};
+
+        for (int i = 0; i < arr.length; i++) {
+            shubaInt.addShuba(arr[i]);
+        }
+
+        for (int i = 0; i < shubaInt.sizeShuba(); i++) {
+            System.out.print(shubaInt.getShuba(i) + " ");
+        }
+
+        System.out.println();//Spacing
+
+        //Applies sorting algorithm of my ShubaList.
+        shubaInt.shubaSort(arr);
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
 
 
     }//end of clas
